@@ -1,0 +1,7 @@
+name: vyae
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - tensorflow=2.7
+  - numpy=1.22
