@@ -88,7 +88,12 @@ def create_models(args, weights=None, weights_path="results"):
         discriminator.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=args.learning_rate))
         autoencoder.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=args.learning_rate))
 
-        autoencoder.load_weights(os.path.join(weights_path, weights, "training.ckpt"))
+        # need to call the autoencoder once before loading weights in HDF5 format
+        test_x = tf.zeros((1,1,args.L))
+        test_S, test_P = audio_pre(test_x)
+        test_y = autoencoder(test_S)
+
+        autoencoder.load_weights(os.path.join(weights_path, weights, "autoencoder_weights.hdf5"))
     
     return encoder, decoder, autoencoder, discriminator, audio_pre, audio_post
 
