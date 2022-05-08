@@ -16,8 +16,6 @@ parser.add_argument("-b", "--batch-size", type=int, dest="batch_size", default=8
 parser.add_argument("-a", "--adverse-epochs", type=int, dest="adverse_epochs", default=70)
 parser.add_argument("-w", "--warmup-epochs", type=int, dest="warmup_epochs", default=0)
 parser.add_argument("-l", "--learning-rate", type=float, dest="learning_rate", default=1e-4)
-parser.add_argument("-f", "--num-filters-base", type=int, dest="nfb", default=64)
-parser.add_argument("-k", "--kernel-size", type=int, dest="ks", default=5)
 parser.add_argument("-m", "--ms-loss", type=float, dest="ms_loss", default=1./300)
 parser.add_argument("-i", "--ad-loss", type=float, dest="ad_loss", default=1.)
 parser.add_argument("-d", "--dataset", type=str, dest="dataset", default="sb")
@@ -25,6 +23,8 @@ parser.add_argument("-e", "--freeze-enc", type=str2bool, dest="freeze_encoder", 
 parser.add_argument("-v", "--use-vae", type=str2bool, dest="use_vae", default=True)
 
 # usually fixed settings
+parser.add_argument("--num-filters-base", type=int, dest="nfb", default=64)
+parser.add_argument("--kernel-size", type=int, dest="ks", default=5)
 parser.add_argument("--sampling-rate", type=float, dest="fs", default=16000.)
 parser.add_argument("--excerpt-length", type=int, dest="L", default=8192)
 parser.add_argument("--fft-size", type=int, dest="L_fft", default=1024)

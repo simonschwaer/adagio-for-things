@@ -2,11 +2,12 @@ import tensorflow as tf
 import tensorflow.keras.layers as tfkl
 
 import numpy as np
+import os
 
 from .stft import get_magspec_model, get_inv_magspec_model
 from .common import bhattacharyya_distance, audio_loss, VAESampling
 
-def create_models(args, weights=None):
+def create_models(args, weights=None, weights_path="results"):
     # derive some variables from the args
     M = np.ceil((args.L_fft + 1) / 2).astype(int) - 1 # number of frequency bins in the spectrogram (DC discarded)
     B = np.ceil(args.L / args.L_hop).astype(int) # number of time frames in the spectrogram
@@ -87,7 +88,7 @@ def create_models(args, weights=None):
         discriminator.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=args.learning_rate))
         autoencoder.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=args.learning_rate))
 
-        autoencoder.load_weights("./runners/results/%s/training.ckpt" % weights)
+        autoencoder.load_weights(os.path.join(weights_path, weights, "training.ckpt"))
     
     return encoder, decoder, autoencoder, discriminator, audio_pre, audio_post
 
